@@ -1,12 +1,14 @@
 
 import Header from './components/Header'
-// import { Pricing } from './components/Pricing'
+import Main from './components/Main'
+import Langs from './components/Langs'
 function App() {
 
   return (
     <div className="App">
         <Header />
-        {/* <Pricing /> */}
+        <Main />
+        <Langs />
 
     </div>
   )

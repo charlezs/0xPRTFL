@@ -1,22 +1,87 @@
-import { Box, Heading, Text } from '@chakra-ui/react';
+import { ReactNode } from 'react';
+import {
+  Box,
+  Flex,
+  Avatar,
+  Link,
+  Button,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuDivider,
+  useDisclosure,
+  useColorModeValue,
+  Stack,
+  useColorMode,
+  Center,
+} from '@chakra-ui/react';
+import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 
-export default function Header() {
+const NavLink = ({ children }: { children: ReactNode }) => (
+  <Link
+    px={2}
+    py={1}
+    rounded={'md'}
+    _hover={{
+      textDecoration: 'none',
+      bg: useColorModeValue('gray.200', 'gray.700'),
+    }}
+    href={'#'}>
+    {children}
+  </Link>
+);
+
+export default function Nav() {
+  const { colorMode, toggleColorMode } = useColorMode();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Box
-      as='section'
-      color='#F7FAFC'
-      bg='#6B46C1'
-      pt='90px'
-      pb='198px'
-      px='32px'
-      textAlign='center'
-    >
-      <Heading fontWeight='800' fontSize='48px'>
-        Simple pricing for your business
-      </Heading>
-      <Text fontWeight='500' fontSize='24px' pt='16px'>
-        Plans that are carefully crafted to suit your business.
-      </Text>
-    </Box>
+    <>
+      <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
+        <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
+          <Box></Box>
+
+          <Flex alignItems={'center'}>
+            <Stack direction={'row'} spacing={7}>
+              <Button onClick={toggleColorMode} h={12}>
+                {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+              </Button>
+
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  rounded={'full'}
+                  variant={'link'}
+                  cursor={'pointer'}
+                  minW={0}>
+                  <Avatar
+                    size={'md'}
+                    src={'https://avatars.githubusercontent.com/u/90402466?v=4'}
+                  />
+                </MenuButton>
+                <MenuList alignItems={'center'}>
+                  <br />
+                  <Center>
+                    <Avatar
+                      size={'2xl'}
+                      src={'https://avatars.githubusercontent.com/u/90402466?v=4'}
+                    />
+                  </Center>
+                  <br />
+                  <Center>
+                    <p>Links to My:</p>
+                  </Center>
+                  <br />
+                  <MenuDivider />
+                  <MenuItem> <Link href='https://chakra-ui.com'>Github</Link></MenuItem>
+                  <MenuItem>Twitter</MenuItem>
+                  <MenuItem>LinkedIn</MenuItem>
+                </MenuList>
+              </Menu>
+            </Stack>
+          </Flex>
+        </Flex>
+      </Box>
+    </>
   );
 }
